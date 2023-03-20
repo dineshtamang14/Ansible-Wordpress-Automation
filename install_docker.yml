@@ -1,0 +1,30 @@
+- hosts: all
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+
+  tasks:
+    - name: Install Docker on CentOS
+      when: "'centos' in ansible_os_family"
+      yum:
+        name: docker-ce
+        state: present
+
+    - name: Install Docker on Ubuntu
+      when: "'debian' in ansible_os_family"
+      apt:
+        name: docker-ce
+        state: present
+
+    - name: Start Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add user to Docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: docker
+        append: yes
+

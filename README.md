@@ -16,3 +16,7 @@ ansible all -m ping```
 ```sh
 ansible-playbook <playbook-file.yaml>```
 
+### To Check installed docker version on all nodes
+```sh
+ansible nodes -a "docker --version"```
+
