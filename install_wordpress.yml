@@ -1,7 +1,9 @@
 - hosts: all
   become: yes
-  tasks:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
 
+  tasks:
     - name: Create Network
       community.docker.docker_network:
         name: wordpress
